@@ -26,7 +26,7 @@ public:
     void open();
     void close();
 
-    void frame(std::function<void(SDL_Renderer*)> f = [](SDL_Renderer* ren){});
+    void render();
     void event(SDL_Event* event);
 
     void setWindowFlags(Uint32 flags);

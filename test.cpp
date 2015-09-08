@@ -25,7 +25,7 @@ int main(int argc, char** argv)
     SDL_Event event;
     while(window.isOpen())
     {
-        window.frame();
+        window.render();
         while(SDL_PollEvent(&event))
         {
             window.event(&event);

@@ -74,11 +74,14 @@ void Window::close()
     }
 }
 
-void Window::frame(std::function<void(SDL_Renderer*)> f)
+void Window::render()
 {
     SDL_SetRenderDrawColor(ren, 0, 0, 0, 255);
     SDL_RenderClear(ren);
-    f(ren);
+    if(widget != nullptr)
+    {
+        widget->render(ren);
+    }
     SDL_RenderPresent(ren);
 }
 
