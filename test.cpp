@@ -6,12 +6,14 @@
  */
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include <stdexcept>
 
 #include "src/Window.h"
 #include "src/Rectangle.h"
 #include "src/VLayout.h"
 #include "src/HLayout.h"
+#include "src/Label.h"
 
 using namespace gui;
 
@@ -20,6 +22,18 @@ int main(int argc, char** argv)
     if(SDL_Init(SDL_INIT_VIDEO) != 0)
     {
         throw std::runtime_error("Could not initialize SDL.");
+    }
+    if(TTF_Init() != 0)
+    {
+        SDL_Quit();
+        throw std::runtime_error("Could not initialize SDL TTF.");
+    }
+    TTF_Font* font = TTF_OpenFont("freefont/FreeSans.ttf", 18);
+    if(font == nullptr)
+    {
+        TTF_Quit();
+        SDL_Quit();
+        throw std::runtime_error("Could not open font.");
     }
 
     Window window;
@@ -50,6 +64,9 @@ int main(int argc, char** argv)
     Rectangle red3(&vlayout3, false);
     red3.setFGColor(255, 0, 0, 255);
 
+    Label label(&layout, false, font);
+    label.setText("This is my label that I am showing here to the right of these rectangles to show how this GUI is going to work.");
+
     window.setWidget(&layout);
     window.open();
 
@@ -63,6 +80,8 @@ int main(int argc, char** argv)
         }
     }
 
+    TTF_CloseFont(font);
+    TTF_Quit();
     SDL_Quit();
     return 0;
 }

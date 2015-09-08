@@ -6,6 +6,7 @@
  */
 
 #include "Rectangle.h"
+#include <stdexcept>
 
 namespace gui
 {
@@ -22,6 +23,7 @@ Rectangle::~Rectangle()
 
 void Rectangle::resize(SDL_Rect* newSize)
 {
+    if(newSize == nullptr) throw std::invalid_argument("Size to resize to was nullptr");
     rect = *newSize;
 }
 
