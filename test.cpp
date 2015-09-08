@@ -9,6 +9,8 @@
 #include <stdexcept>
 
 #include "src/Window.h"
+#include "src/Rectangle.h"
+#include "src/VLayout.h"
 
 using namespace gui;
 
@@ -20,6 +22,19 @@ int main(int argc, char** argv)
     }
 
     Window window;
+
+    VLayout layout;
+
+    Rectangle red(&layout, false);
+    red.setFGColor(255, 0, 0, 255);
+
+    Rectangle green(&layout, false);
+    green.setFGColor(0, 255, 0, 255);
+
+    Rectangle blue(&layout, false);
+    blue.setFGColor(0, 0, 255, 255);
+
+    window.setWidget(&layout);
     window.open();
 
     SDL_Event event;

@@ -16,7 +16,7 @@ namespace gui
 class VLayout : public Layout
 {
 public:
-    VLayout(Widget* parent, bool canDestroy = true);
+    VLayout(Widget* parent = nullptr, bool canDestroy = true);
     ~VLayout();
 
     void resize(SDL_Rect* newSize);

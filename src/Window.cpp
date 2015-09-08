@@ -97,7 +97,7 @@ void Window::event(SDL_Event* event)
         {
             switch(event->window.event)
             {
-            case SDL_WINDOWEVENT_RESIZED:
+            case SDL_WINDOWEVENT_SIZE_CHANGED:
                 w = event->window.data1;
                 h = event->window.data2;
                 if(widget != nullptr)
@@ -123,8 +123,6 @@ void Window::setSize(unsigned w, unsigned h)
     {
         SDL_SetWindowSize(win, w, h);
     }
-    this->w = w;
-    this->h = h;
 }
 
 void Window::setWindowFlags(Uint32 flags)
@@ -150,6 +148,8 @@ unsigned Window::getWidth()
 void Window::setWidget(Widget* widget)
 {
     this->widget = widget;
+    SDL_Rect size = { 0, 0, w, h };
+    widget->resize(&size);
 }
 
 unsigned Window::getHeight()
