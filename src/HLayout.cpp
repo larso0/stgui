@@ -40,7 +40,7 @@ void HLayout::resize(SDL_Rect* newSize)
         wrect.w = wsize;
         wrect.h = rect.h;
     }
-    rect.h = width;
+    rect.w = width;
 }
 
 } /* namespace gui */
