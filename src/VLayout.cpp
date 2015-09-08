@@ -40,7 +40,21 @@ void VLayout::resize(SDL_Rect* newSize)
         wrect.h = wsize;
         wrect.w = rect.w;
     }
-    rect.h = height;
+    int delta = newSize->h - height;
+    if(delta <= 0) return;
+    for(int i = 0; i < delta; i++)
+    {
+        SDL_Rect tmp = *children[i]->getRectangle();
+        tmp.y += i;
+        tmp.h++;
+        children[i]->resize(&tmp);
+    }
+    for(int i = delta; i < (int)children.size(); i++)
+    {
+        SDL_Rect tmp = *children[i]->getRectangle();
+        tmp.y += delta;
+        children[i]->resize(&tmp);
+    }
 }
 
 } /* namespace gui */
