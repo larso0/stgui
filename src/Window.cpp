@@ -59,6 +59,7 @@ void Window::open()
 
         isopen = true;
         wID = SDL_GetWindowID(win);
+        SDL_SetRenderDrawBlendMode(ren, SDL_BLENDMODE_BLEND);
     }
 }
 
