@@ -11,6 +11,7 @@
 #include "src/Window.h"
 #include "src/Rectangle.h"
 #include "src/VLayout.h"
+#include "src/HLayout.h"
 
 using namespace gui;
 
@@ -23,16 +24,31 @@ int main(int argc, char** argv)
 
     Window window;
 
-    VLayout layout;
+    HLayout layout;
 
-    Rectangle red(&layout, false);
-    red.setFGColor(255, 0, 0, 255);
+    VLayout vlayout1(&layout, false);
+    Rectangle red1(&vlayout1, false);
+    red1.setFGColor(255, 0, 0, 255);
+    Rectangle green1(&vlayout1, false);
+    green1.setFGColor(0, 255, 0, 255);
+    Rectangle blue1(&vlayout1, false);
+    blue1.setFGColor(0, 0, 255, 255);
 
-    Rectangle green(&layout, false);
-    green.setFGColor(0, 255, 0, 255);
+    VLayout vlayout2(&layout, false);
+    Rectangle blue2(&vlayout2, false);
+    blue2.setFGColor(0, 0, 255, 255);
+    Rectangle red2(&vlayout2, false);
+    red2.setFGColor(255, 0, 0, 255);
+    Rectangle green2(&vlayout2, false);
+    green2.setFGColor(0, 255, 0, 255);
 
-    Rectangle blue(&layout, false);
-    blue.setFGColor(0, 0, 255, 255);
+    VLayout vlayout3(&layout, false);
+    Rectangle green3(&vlayout3, false);
+    green3.setFGColor(0, 255, 0, 255);
+    Rectangle blue3(&vlayout3, false);
+    blue3.setFGColor(0, 0, 255, 255);
+    Rectangle red3(&vlayout3, false);
+    red3.setFGColor(255, 0, 0, 255);
 
     window.setWidget(&layout);
     window.open();

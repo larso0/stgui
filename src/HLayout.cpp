@@ -1,46 +1,46 @@
 /*
- * VLayout.cpp
+ * HLayout.cpp
  *
- *  Created on: 6. sep. 2015
+ *  Created on: 8. sep. 2015
  *      Author: larso
  */
 
-#include "VLayout.h"
+#include "HLayout.h"
 #include <stdexcept>
 
 namespace gui
 {
 
-VLayout::VLayout(Widget* parent, bool canDestroy)
+HLayout::HLayout(Widget* parent, bool canDestroy)
 : Layout(parent, canDestroy)
 {
 }
 
-void VLayout::resize(SDL_Rect* newSize)
+void HLayout::resize(SDL_Rect* newSize)
 {
     if(newSize == nullptr) throw std::invalid_argument("New size is null pointer.");
     rect = *newSize;
     if(children.size() == 0) return;
-    int height = 0, lsize = rect.h, wsize = rect.h/children.size();
+    int width = 0, lsize = rect.w, wsize = lsize/children.size();
     int wcount = children.size();
     SDL_Rect wrect = rect;
-    wrect.h = wsize;
+    wrect.w = wsize;
     for(unsigned i = 0; i < children.size(); i++)
     {
         children[i]->resize(&wrect);
         wrect = *children[i]->getRectangle();
-        height += wrect.h;
-        lsize -= wrect.h;
+        width += wrect.w;
+        lsize -= wrect.w;
         wcount--;
-        if(wrect.h != wsize && lsize > 0 && wcount > 0)
+        if(wrect.w != wsize && lsize > 0 && wcount > 0)
         {
             wsize = lsize / wcount;
         }
-        wrect.y += wrect.h;
-        wrect.h = wsize;
-        wrect.w = rect.w;
+        wrect.x += wrect.w;
+        wrect.w = wsize;
+        wrect.h = rect.h;
     }
-    rect.h = height;
+    rect.h = width;
 }
 
 } /* namespace gui */
