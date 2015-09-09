@@ -14,6 +14,7 @@
 #include "src/VLayout.h"
 #include "src/HLayout.h"
 #include "src/Label.h"
+#include "src/Button.h"
 
 using namespace gui;
 
@@ -63,9 +64,14 @@ int main(int argc, char** argv)
     blue3.setFGColor(0, 0, 255, 255);
     Rectangle red3(&vlayout3, false);
     red3.setFGColor(255, 0, 0, 255);
+    Button button(&vlayout3, false, font);
+    button.setText("Click to change text!");
 
     Label label(&layout, false, font);
     label.setText("This is my label that I am showing here to the right of these rectangles to show how this GUI is going to work.");
+    button.onClick([&label]{
+        label.setText("You changed the text of this label to this particular string of character that are shown in this example.");
+    });
 
     window.setWidget(&layout);
     window.open();

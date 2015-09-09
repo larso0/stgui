@@ -36,7 +36,14 @@ void Layout::event(SDL_Event* event)
             }
         }
     }
-    if(active != nullptr) active->event(event);
+    if(event->type == SDL_MOUSEMOTION)
+    {
+        for(unsigned i = 0; i < children.size(); i++)
+        {
+            children[i]->event(event);
+        }
+    }
+    else if(active != nullptr) active->event(event);
 }
 
 void Layout::render(SDL_Renderer* renderer)

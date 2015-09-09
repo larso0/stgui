@@ -62,13 +62,49 @@ void Label::render(SDL_Renderer* renderer)
     if(renderer == nullptr) throw std::invalid_argument("Renderer was a nullpointer.");
     if(ttex == nullptr)
     {
-        if(tsurf == nullptr) throw std::runtime_error("Text is not rendered for label.");
+        if(tsurf == nullptr)
+        {
+            tsurf = TTF_RenderUTF8_Blended_Wrapped(font, text.c_str(), fg, rect.w);
+            if(tsurf == nullptr) throw std::runtime_error("Could not render label text.");
+            rect.h = tsurf->h;
+            rect.w = tsurf->w;
+        }
         ttex = SDL_CreateTextureFromSurface(renderer, tsurf);
         if(ttex == nullptr) throw std::runtime_error("Could not create texture for label.");
     }
     SDL_SetRenderDrawColor(renderer, bg.r, bg.g, bg.b, bg.a);
     SDL_RenderFillRect(renderer, &rect);
     SDL_RenderCopy(renderer, ttex, nullptr, &rect);
+}
+
+void Label::setBGColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+{
+    Widget::setBGColor(r, g, b, a);
+    if(ttex != nullptr)
+    {
+        SDL_DestroyTexture(ttex);
+        ttex = nullptr;
+    }
+    if(tsurf != nullptr)
+    {
+        SDL_FreeSurface(tsurf);
+        tsurf = nullptr;
+    }
+}
+
+void Label::setFGColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+{
+    Widget::setFGColor(r, g, b, a);
+    if(ttex != nullptr)
+    {
+        SDL_DestroyTexture(ttex);
+        ttex = nullptr;
+    }
+    if(tsurf != nullptr)
+    {
+        SDL_FreeSurface(tsurf);
+        tsurf = nullptr;
+    }
 }
 
 void Label::setText(std::string text)

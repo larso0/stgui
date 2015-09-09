@@ -16,7 +16,7 @@ namespace gui
 class HLayout : public Layout
 {
 public:
-    HLayout(Widget* parent = nullptr, bool canDestroy = true);
+    HLayout(Widget* parent = nullptr, bool canDestroy = false);
     void resize(SDL_Rect* newSize);
 };
 

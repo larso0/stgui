@@ -41,19 +41,11 @@ void VLayout::resize(SDL_Rect* newSize)
         wrect.w = rect.w;
     }
     int delta = newSize->h - height;
-    if(delta <= 0) return;
-    for(int i = 0; i < delta; i++)
+    if(delta > 0)
     {
-        SDL_Rect tmp = *children[i]->getRectangle();
-        tmp.y += i;
-        tmp.h++;
-        children[i]->resize(&tmp);
-    }
-    for(int i = delta; i < (int)children.size(); i++)
-    {
-        SDL_Rect tmp = *children[i]->getRectangle();
-        tmp.y += delta;
-        children[i]->resize(&tmp);
+        SDL_Rect tmp = *children.back()->getRectangle();
+        tmp.h += delta;
+        children.back()->resize(&tmp);
     }
 }
 

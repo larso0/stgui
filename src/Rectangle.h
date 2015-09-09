@@ -16,7 +16,7 @@ namespace gui
 class Rectangle : public Widget
 {
 public:
-    Rectangle(Widget* parent = nullptr, bool canDestroy = true);
+    Rectangle(Widget* parent = nullptr, bool canDestroy = false);
     ~Rectangle();
 
     void resize(SDL_Rect* newSize);

@@ -23,7 +23,8 @@ public:
     void resize(SDL_Rect* newSize);
     void event(SDL_Event* event);
     void render(SDL_Renderer* renderer);
-
+    void setBGColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+    void setFGColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
     void setText(std::string text);
 private:
     std::string text;

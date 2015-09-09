@@ -24,10 +24,10 @@ public:
     virtual void render(SDL_Renderer* renderer) = 0;
 
     virtual void addWidget(Widget* widget);
-    void removeWidget(Widget* toRemove);
+    virtual void removeWidget(Widget* toRemove);
 
-    void setBGColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
-    void setFGColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+    virtual void setBGColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+    virtual void setFGColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
     const SDL_Rect* getRectangle();
 protected:
