@@ -21,9 +21,13 @@ void HLayout::resize(SDL_Rect* newSize)
     if(newSize == nullptr) throw std::invalid_argument("New size is null pointer.");
     rect = *newSize;
     if(children.size() == 0) return;
-    int width = 0, lsize = rect.w, wsize = lsize/children.size();
+    int width = 0;
+    int lsize = rect.w - padding.l - padding.r - margin.l - margin.r;
+    int wsize = lsize/children.size();
     int wcount = children.size();
     SDL_Rect wrect = rect;
+    wrect.x += padding.l + margin.l;
+    wrect.y += padding.u + margin.u;
     wrect.w = wsize;
     for(unsigned i = 0; i < children.size(); i++)
     {
@@ -40,7 +44,7 @@ void HLayout::resize(SDL_Rect* newSize)
         wrect.w = wsize;
         wrect.h = rect.h;
     }
-    int delta = newSize->w - width;
+    int delta = rect.w - padding.l - padding.r - margin.l - margin.r - width;
     if(delta > 0)
     {
         SDL_Rect tmp = *children.back()->getRectangle();

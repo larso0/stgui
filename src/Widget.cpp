@@ -19,6 +19,9 @@ Widget::Widget(Widget* parent, bool canDestroy)
     show = true;
     bg = { 255, 255, 255, 255 };
     fg = { 0, 0, 0, 255 };
+    padding = { 0,0,0,0 };
+    margin = { 5,5,5,5 };
+    initialized = false;
 }
 
 Widget::~Widget()
@@ -52,14 +55,45 @@ void Widget::setFGColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
     fg = { r, g, b, a };
 }
 
+void Widget::setPadding(int l, int r, int u, int d)
+{
+    padding = { l,r,u,d };
+    resizeCallback();
+}
+
+void Widget::setMargin(int l, int r, int u, int d)
+{
+    margin = { l,r,u,d };
+    resizeCallback();
+}
+
 const SDL_Rect* gui::Widget::getRectangle()
 {
     return &rect;
 }
 
+void Widget::initialize(SDL_Rect* initSize)
+{
+    setInit();
+    resize(initSize);
+}
+
+void Widget::setInit()
+{
+    initialized = true;
+    for(unsigned i = 0; i < children.size(); i++)
+    {
+        children[i]->setInit();
+    }
+}
+
 void Widget::resizeCallback()
 {
-    resize(&rect);
+    if(initialized)
+    {
+        if(parent != nullptr) parent->resizeCallback();
+        else resize(&rect);
+    }
 }
 
 } /* namespace gui */

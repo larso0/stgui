@@ -150,7 +150,7 @@ void Window::setWidget(Widget* widget)
 {
     this->widget = widget;
     SDL_Rect size = { 0, 0, w, h };
-    widget->resize(&size);
+    widget->initialize(&size);
 }
 
 unsigned Window::getHeight()

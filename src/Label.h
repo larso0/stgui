@@ -31,8 +31,6 @@ private:
     TTF_Font* font;
     SDL_Surface* tsurf;
     SDL_Texture* ttex;
-
-    bool initialized;
 };
 
 } /* namespace gui */

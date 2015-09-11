@@ -32,14 +32,18 @@ Button::~Button()
 void Button::resize(SDL_Rect* newSize)
 {
     if(newSize == nullptr) throw std::invalid_argument("Size rectangle was a nullpointer.");
-    SDL_Rect size = *newSize;
-    size.x += 3;
-    size.y += 3;
-    size.w -= 6;
-    size.h -= 6;
-    text->resize(&size);
-    size = *text->getRectangle();
-    rect = { size.x-3, size.y-3, size.w+6, size.h+6 };
+    SDL_Rect tmp = *newSize;
+    tmp.x += margin.l + padding.l;
+    tmp.y += margin.u + padding.u;
+    tmp.w -= padding.l + padding.r;
+    tmp.h -= padding.u + padding.d;
+    text->resize(&tmp);
+    tmp = *text->getRectangle();
+    rect = {
+        newSize->x, newSize->y,
+        tmp.w + margin.l + margin.r + padding.l + padding.r,
+        tmp.h + margin.u + margin.d + padding.u + padding.d
+    };
 }
 
 void Button::event(SDL_Event* event)
@@ -99,7 +103,12 @@ void Button::render(SDL_Renderer* renderer)
         SDL_SetRenderDrawColor(renderer, bgClick.r, bgClick.g, bgClick.b, bgClick.a);
         break;
     }
-    SDL_RenderFillRect(renderer, &rect);
+    SDL_Rect dst = rect;
+    dst.x += margin.l + padding.l;
+    dst.y += margin.u + padding.u;
+    dst.w -= margin.l + margin.r + padding.l + padding.r;
+    dst.h -= margin.u + margin.d + padding.u + padding.d;
+    SDL_RenderFillRect(renderer, &dst);
     text->render(renderer);
 }
 
