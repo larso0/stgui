@@ -24,7 +24,7 @@ Layout::~Layout()
 void Layout::event(SDL_Event* event)
 {
     if(event == nullptr) return;
-    if(event->type == SDL_MOUSEBUTTONUP && event->button.button == SDL_BUTTON_LEFT)
+    if(event->type == SDL_MOUSEBUTTONDOWN && event->button.button == SDL_BUTTON_LEFT)
     {
         SDL_Point mpos = { event->button.x, event->button.y };
         for(unsigned i = 0; i < children.size(); i++)

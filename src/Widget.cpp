@@ -57,4 +57,9 @@ const SDL_Rect* gui::Widget::getRectangle()
     return &rect;
 }
 
+void Widget::resizeCallback()
+{
+    resize(&rect);
+}
+
 } /* namespace gui */

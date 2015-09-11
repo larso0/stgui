@@ -15,6 +15,7 @@
 #include "src/HLayout.h"
 #include "src/Label.h"
 #include "src/Button.h"
+#include <string>
 
 using namespace gui;
 
@@ -39,38 +40,40 @@ int main(int argc, char** argv)
 
     Window window;
 
-    HLayout layout;
+    VLayout layout;
 
-    VLayout vlayout1(&layout, false);
-    Rectangle red1(&vlayout1, false);
-    red1.setFGColor(255, 0, 0, 255);
-    Rectangle green1(&vlayout1, false);
-    green1.setFGColor(0, 255, 0, 255);
-    Rectangle blue1(&vlayout1, false);
-    blue1.setFGColor(0, 0, 255, 255);
+    HLayout hl1(&layout, false);
+    Label lbl1(&hl1, false, font);
+    Button btn1(&hl1, false, font);
+    Button rst1(&hl1, false, font);
+    unsigned long counter = 0;
+    lbl1.setText(std::to_string(counter));
+    btn1.setText("Count");
+    btn1.onClick([&counter, &lbl1]{
+        counter++;
+        lbl1.setText(std::to_string(counter));
+    });
+    rst1.setText("Reset");
+    rst1.onClick([&counter, &lbl1]{
+        counter = 0;
+        lbl1.setText(std::to_string(counter));
+    });
 
-    VLayout vlayout2(&layout, false);
-    Rectangle blue2(&vlayout2, false);
-    blue2.setFGColor(0, 0, 255, 255);
-    Rectangle red2(&vlayout2, false);
-    red2.setFGColor(255, 0, 0, 255);
-    Rectangle green2(&vlayout2, false);
-    green2.setFGColor(0, 255, 0, 255);
-
-    VLayout vlayout3(&layout, false);
-    Rectangle green3(&vlayout3, false);
-    green3.setFGColor(0, 255, 0, 255);
-    Rectangle blue3(&vlayout3, false);
-    blue3.setFGColor(0, 0, 255, 255);
-    Rectangle red3(&vlayout3, false);
-    red3.setFGColor(255, 0, 0, 255);
-    Button button(&vlayout3, false, font);
-    button.setText("Click to change text!");
-
-    Label label(&layout, false, font);
-    label.setText("This is my label that I am showing here to the right of these rectangles to show how this GUI is going to work.");
-    button.onClick([&label]{
-        label.setText("You changed the text of this label to this particular string of character that are shown in this example.");
+    HLayout hl2(&layout, false);
+    Label lbl2(&hl2, false, font);
+    Button btn2(&hl2, false, font);
+    Button rst2(&hl2, false, font);
+    unsigned long long dbl = 1;
+    lbl2.setText(std::to_string(dbl));
+    btn2.setText("Double");
+    btn2.onClick([&dbl, &lbl2]{
+        dbl = dbl + dbl;
+        lbl2.setText(std::to_string(dbl));
+    });
+    rst2.setText("Reset");
+    rst2.onClick([&dbl, &lbl2]{
+        dbl = 1;
+        lbl2.setText(std::to_string(dbl));
     });
 
     window.setWidget(&layout);

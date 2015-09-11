@@ -18,6 +18,7 @@ Label::Label(Widget* parent, bool canDestroy, TTF_Font* font)
     this->font = font;
     tsurf = nullptr;
     ttex = nullptr;
+    initialized = false;
 }
 Label::~Label()
 {
@@ -51,6 +52,7 @@ void Label::resize(SDL_Rect* newSize)
     if(tsurf == nullptr) throw std::runtime_error("Could not render label text.");
     rect.h = tsurf->h;
     rect.w = tsurf->w;
+    if(!initialized) initialized = true;
 }
 
 void Label::event(SDL_Event* event)
@@ -110,15 +112,10 @@ void Label::setFGColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 void Label::setText(std::string text)
 {
     this->text = text;
-    if(ttex != nullptr)
+    if(initialized)
     {
-        SDL_DestroyTexture(ttex);
-        ttex = nullptr;
-    }
-    if(tsurf != nullptr)
-    {
-        SDL_FreeSurface(tsurf);
-        tsurf = nullptr;
+        if(parent != nullptr) parent->resizeCallback();
+        else resize(&rect);
     }
 }
 

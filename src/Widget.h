@@ -17,7 +17,7 @@ namespace gui
 class Widget
 {
 public:
-    explicit Widget(Widget* parent, bool canDestroy = true);
+    explicit Widget(Widget* parent, bool canDestroy);
     virtual ~Widget();
     virtual void resize(SDL_Rect* newSize) = 0;
     virtual void event(SDL_Event* event) = 0;
@@ -30,6 +30,8 @@ public:
     virtual void setFGColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
     const SDL_Rect* getRectangle();
+
+    void resizeCallback();
 protected:
     Widget* parent;
     std::vector<Widget*> children;
