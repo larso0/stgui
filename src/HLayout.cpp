@@ -14,6 +14,7 @@ namespace gui
 HLayout::HLayout(Widget* parent, bool canDestroy)
 : Layout(parent, canDestroy)
 {
+    bg.a = 0;
 }
 
 void HLayout::resize(SDL_Rect* newSize)
@@ -51,6 +52,13 @@ void HLayout::resize(SDL_Rect* newSize)
         tmp.w += delta;
         children.back()->resize(&tmp);
     }
+    int height = 0;
+    for(unsigned i = 0; i < children.size(); i++)
+    {
+        const SDL_Rect* crect = children[i]->getRectangle();
+        if(crect->h > height) height = crect->h;
+    }
+    rect.h = height + margin.u + margin.d + padding.u + padding.d;
 }
 
 } /* namespace gui */

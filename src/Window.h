@@ -48,7 +48,7 @@ private:
     int rindex;
 
     bool isopen;
-    unsigned w, h;
+    int w, h;
 
     Widget* widget;
 };

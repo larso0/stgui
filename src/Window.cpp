@@ -77,7 +77,7 @@ void Window::close()
 
 void Window::render()
 {
-    SDL_SetRenderDrawColor(ren, 0, 0, 0, 255);
+    SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
     SDL_RenderClear(ren);
     if(widget != nullptr)
     {

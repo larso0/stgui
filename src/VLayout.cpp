@@ -14,6 +14,7 @@ namespace gui
 VLayout::VLayout(Widget* parent, bool canDestroy)
 : Layout(parent, canDestroy)
 {
+    bg.a = 0;
 }
 
 void VLayout::resize(SDL_Rect* newSize)
@@ -51,6 +52,13 @@ void VLayout::resize(SDL_Rect* newSize)
         tmp.h += delta;
         children.back()->resize(&tmp);
     }
+    int width = 0;
+    for(unsigned i = 0; i < children.size(); i++)
+    {
+        const SDL_Rect* crect = children[i]->getRectangle();
+        if(crect->w > width) width = crect->w;
+    }
+    rect.w = width + margin.l + margin.r + padding.l + padding.r;
 }
 
 } /* namespace gui */
