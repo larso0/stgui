@@ -54,13 +54,10 @@ void Button::event(SDL_Event* event)
     case SDL_MOUSEMOTION:
         pos.x = event->motion.x;
         pos.y = event->motion.y;
-        if(PointIsInsideRect(&pos, &rect))
+        if(state != CLICK)
         {
-            setState(HOVER);
-        }
-        else
-        {
-            setState(NORMAL);
+            if(PointIsInsideRect(&pos, &rect)) setState(HOVER);
+            else setState(NORMAL);
         }
         break;
     case SDL_MOUSEBUTTONDOWN:
@@ -81,7 +78,7 @@ void Button::event(SDL_Event* event)
             {
                 callbacks[i]();
             }
-        }
+        } else if(state == CLICK) setState(NORMAL);
         break;
     default:
         break;

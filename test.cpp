@@ -80,13 +80,11 @@ int main(int argc, char** argv)
     window.open();
 
     SDL_Event event;
-    while(window.isOpen())
+    while(window.isOpen() && SDL_WaitEvent(&event))
     {
-        window.render();
-        while(SDL_PollEvent(&event))
-        {
-            window.event(&event);
-        }
+        window.event(&event);
+        while(SDL_PollEvent(&event)) window.event(&event);
+        if(window.isOpen()) window.render();
     }
 
     TTF_CloseFont(font);
